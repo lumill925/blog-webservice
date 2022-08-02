@@ -1,7 +1,7 @@
 package com.sparta.blogwebservice.domain;
 
-import com.sparta.blogwebservice.dto.PostsSaveRequestDto;
-import com.sparta.blogwebservice.dto.PostsUpdateRequestDto;
+import com.sparta.blogwebservice.dto.Posts.PostsSaveRequestDto;
+import com.sparta.blogwebservice.dto.Posts.PostsUpdateRequestDto;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,9 +43,11 @@ public class PostsControllerTest {
         //given
         String title = "title";
         String content = "content";
+        String author = "author";
         PostsSaveRequestDto requestDto = PostsSaveRequestDto.builder()
                 .title(title)
                 .content(content)
+                .author(author)
                 .build();
 
         String url = "http://localhost:" + port + "/api/posts";
@@ -71,6 +73,7 @@ public class PostsControllerTest {
         Posts savedPosts = postsRepository.save(Posts.builder()
                 .title("title")
                 .content("content")
+                .author("author")
                 .build());
 
         Long updateId = savedPosts.getId();

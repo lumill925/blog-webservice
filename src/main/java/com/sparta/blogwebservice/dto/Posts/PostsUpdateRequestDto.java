@@ -1,4 +1,4 @@
-package com.sparta.blogwebservice.dto;
+package com.sparta.blogwebservice.dto.Posts;
 
 import lombok.Builder;
 import lombok.Getter;

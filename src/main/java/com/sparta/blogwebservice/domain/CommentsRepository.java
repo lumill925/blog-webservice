@@ -5,9 +5,9 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
+public interface CommentsRepository extends JpaRepository<Comments, Long> {
 
-public interface PostsRepository extends JpaRepository<Posts, Long> {
-    List<Posts> findAllByOrderByModifiedDateDesc();
-//    @Query("select p from Posts p order by p.id desc")
+    List<Comments> findAllByOrderByModifiedDateDesc();
+//    @Query("select c from Comments c order by c.id desc")
 //    List<Posts> findAllDesc();
 }

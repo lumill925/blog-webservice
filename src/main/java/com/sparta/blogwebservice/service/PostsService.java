@@ -2,10 +2,10 @@ package com.sparta.blogwebservice.service;
 
 import com.sparta.blogwebservice.domain.Posts;
 import com.sparta.blogwebservice.domain.PostsRepository;
-import com.sparta.blogwebservice.dto.PostsListResponseDto;
-import com.sparta.blogwebservice.dto.PostsResponseDto;
-import com.sparta.blogwebservice.dto.PostsSaveRequestDto;
-import com.sparta.blogwebservice.dto.PostsUpdateRequestDto;
+import com.sparta.blogwebservice.dto.Posts.PostsListResponseDto;
+import com.sparta.blogwebservice.dto.Posts.PostsResponseDto;
+import com.sparta.blogwebservice.dto.Posts.PostsSaveRequestDto;
+import com.sparta.blogwebservice.dto.Posts.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -39,24 +39,24 @@ public class PostsService {
     public void delete(Long id) {
         Posts posts = postsRepository.findById(id)
                 .orElseThrow(
-                        () -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id)
+                        () -> new IllegalArgumentException("해당 포스트가 없습니다. id=" + id)
                 );
         postsRepository.delete(posts);
     }
 
     public PostsResponseDto findById(Long id) {
-        Posts entity = postsRepository.findById(id)
+        Posts posts = postsRepository.findById(id)
                 .orElseThrow(
                         () -> new IllegalArgumentException("해당 포스트가 없습니다. id=" + id)
                 );
-        return new PostsResponseDto(entity);
+        return new PostsResponseDto(posts);
     }
 
-    @Transactional
-    public List<PostsListResponseDto> findAllDesc() {
-        return postsRepository.findAllDesc().stream()
-                .map(PostsListResponseDto::new)
-                .collect(Collectors.toList());
-    }
+//    @Transactional
+//    public List<PostsListResponseDto> findAllDesc() {
+//        return postsRepository.findAllDesc().stream()
+//                .map(PostsListResponseDto::new)
+//                .collect(Collectors.toList());
+//    }
 
 }
