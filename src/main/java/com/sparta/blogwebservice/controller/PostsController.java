@@ -26,12 +26,12 @@ public class PostsController {
     }
 
     @GetMapping
-    public List<Posts> get() {
+    public List<Posts> get(){
         return postsRepository.findAllByOrderByModifiedDateDesc();
     }
 
     @GetMapping("/{id}")
-    public PostsResponseDto findById (@PathVariable Long id) {
+    public PostsResponseDto findById(@PathVariable Long id) {
         return postsService.findById(id);
     }
 

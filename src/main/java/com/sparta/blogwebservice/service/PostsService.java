@@ -53,8 +53,8 @@ public class PostsService {
     }
 
 //    @Transactional
-//    public List<PostsListResponseDto> findAllDesc() {
-//        return postsRepository.findAllDesc().stream()
+//    public List<PostsListResponseDto> findAllByOrderByModifiedDateDesc() {
+//        return postsRepository.findAllByOrderByModifiedDateDesc().stream()
 //                .map(PostsListResponseDto::new)
 //                .collect(Collectors.toList());
 //    }

@@ -1,0 +1,163 @@
+
+a:focus {
+    outline: none !important;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+ul, li {
+    margin: 0px;
+    list-style-type: none;
+}
+
+input {
+    display: block;
+    outline: none;
+    border: none;
+    vertical-align: middle;
+}
+
+textarea {
+    display: block;
+    outline: none;
+    border: none;
+}
+
+textarea:focus, input:focus {
+    border-color: transparent !important;
+}
+
+button {
+    outline: none !important;
+    border: none;
+    background: transparent;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+iframe {
+    border: none !important;
+}
+
+.limiter {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.container-table100 {
+    width: 100%;
+    background: #fff;
+
+}
+
+.wrap-table100 {
+    margin: 10px 0 100px;
+
+}
+
+.table100 {
+    background-color: #fff;
+}
+
+table {
+    width: 100%;
+}
+
+th, td {
+    font-weight: unset;
+    padding-right: 10px;
+}
+
+.column1 {
+    width: 33%;
+    padding-left: 40px;
+}
+
+.column2 {
+    width: 18%;
+}
+
+.column3 {
+    width: 22%;
+}
+
+.column4 {
+    width: 10%;
+}
+
+.table100-head th {
+    padding-top: 18px;
+    padding-bottom: 18px;
+}
+
+.table100-body td {
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.table100-head {
+    width: 100%;
+}
+
+.table100-body {
+    max-height: 585px;
+    overflow: auto;
+}
+
+.table100.ver1 th {
+    font-size: 18px;
+    color: #fff;
+    line-height: 1.4;
+
+    background-color: darkslategray;
+}
+
+.table100.ver1 td {
+    font-size: 15px;
+    color: #808080;
+    line-height: 1.4;
+}
+
+.table100.ver1 .table100-body tr:nth-child(even) {
+    background-color: #f8f6ff;
+}
+
+.table100.ver1 {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+    -o-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+    -ms-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+}
+
+.wrap-button {
+    width: 360px;
+    margin: 50px auto 0;
+}
+
+#signup_btn {
+    width: 100px;
+    float: left;
+    display: block;
+}
+
+#login_btn {
+    width: 100px;
+    float: left;
+    margin-left: 30px;
+    display: block;
+}
+
+#modal_btn {
+    width: 100px;
+    float: right;
+    display: block;
+}
+
+.butt

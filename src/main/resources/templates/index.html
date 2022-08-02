@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="style.css"/>
+    <script>
+        $(document).ready(function () {
+            getPosts();
+        })
+
+        window.onload = function () {
+            document.getElementById('modal_btn').addEventListener('click', onClick);
+            document.querySelector('.is-cancel').addEventListener('click', offClick);
+            document.querySelector('.delete').addEventListener('click', offClick);
+        }
+
+        function onClick() {
+            document.querySelector('.modal').style.display = 'block';
+        }
+
+        function offClick() {
+            document.querySelector('.modal').style.display = 'none';
+            window.location.reload();
+        }
+
+        function onClick_detail() {
+            document.getElementById('modal_detail').style.display = 'block';
+        }
+
+        function offClick_detail() {
+            document.getElementById('modal_detail').style.display = 'none';
+        }
+
+        function onClick_edit() {
+            document.getElementById('modal_edit').style.display = 'block';
+        }
+
+        function offClick_edit() {
+            document.getElementById('modal_edit').style.display = 'none';
+        }
+
+        function getPosts() {
+            $.ajax({
+                type: 'GET',
+                url: '/api/posts',
+                success: function (response) {
+                    for (let i = 0; i < response.length; i++) {
+                        let posts = response[i];
+                        let id = posts['id'];
+                        let title = posts['title']
+                        let author = posts['author'];
+                        let modifiedDate = posts['modifiedDate'];
+                        addHTML(id, title, author, modifiedDate);
+                    }
+                }
+            })
+        }
+
+        function addHTML(id, title, author, modifiedDate) {
+            let tempHtml = `<table>
+                                <tr class="row100 body" id="${id}-list">
+                                    <td class="cell100 column1" style="width: 33%" id="${id}-title"><a onclick="detail(${id})" id="detail_link">${title}</a></td>
+                                    <td class="cell100 column2" style="width: 18%" id="${id}-author">${author}</td>
+                                    <td class="cell100 column4" style="width: 22%" id="${id}-createdAt">${modifiedDate}</td>
+                                    <td class="cell100 column5" style="width: 10%">
+                                    <button class="button is-edit" id="${id}-edit" onclick="editOne(${id})">편집</button>
+                                    </td>
+                                </tr>
+                          </table>`
+            $('#posting_list').append(tempHtml);
+        }
+
+        function writePost() {
+            let title = $('#title').val();
+            let author = $('#author').val();
+            let content = $('#content').val();
+
+            if (title === '' || author === '' || content === '') {
+                alert("내용을 입력해주세요")
+                return;
+            }
+            let data = {'title': title, 'author': author, 'content': content};
+            $.ajax({
+                type: "POST",
+                url: "/api/posts",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function (response) {
+                    alert('메시지가 성공적으로 작성되었습니다.');
+                    window.location.reload();
+                }
+            });
+        }
+
+        function detail(id) {
+            $('#detail_page').empty();
+            $.ajax({
+                type: 'GET',
+                url: `/api/posts/${id}`,
+                success: function (response) {
+                    if (response['id'] === id) {
+                        let id = response['id'];
+                        let title = response['title']
+                        let author = response['author'];
+                        let content = response['content'];
+                        detailPage(id, title, author, content);
+                        onClick_detail()
+                    }
+                }
+            })
+        }
+
+        function detailPage(id, title, author, content) {
+            let tempHtml = `<div>
+                                <header class="modal-card-head">
+                                    <p class="modal-card-title" id="${id}-title">${title}</p>
+                                    <button class="delete" onclick="offClick_detail()" aria-label="close"></button>
+                                </header>
+                                <section class="modal-card-body">
+                                    <p><h6 id="${id}-author">작성자 : ${author}</h6></p>
+                                    <br>
+                                    <p><h4 id="${id}-content">${content}</h4></p>
+                                </section>
+
+                                <footer class="modal-card-foot">
+                                    <button class="button is-cancel" id="exit-btn" onclick="offClick_detail()">닫기</button>
+                                </footer>
+                            </div>`
+            $('#detail_page').append(tempHtml);
+        }
+
+        function editOne(id) {
+            $('#edit_page').empty();
+            $.ajax({
+                type: 'GET',
+                url: `/api/posts/${id}`,
+                success: function (response) {
+                    if (response['id'] === id) {
+                        let id = response['id'];
+                        let title = response['title']
+                        let author = response['author'];
+                        let content = response['content'];
+                        editPage(id, title, author, content);
+                        onClick_edit()
+                    }
+                }
+            })
+        }
+
+        function editPage(id, title, author, content) {
+            let tempHtml = `
+                <header class="modal-card-head">
+                    <p class="modal-card-title">포스팅 수정하기</p>
+                    <button class="delete" aria-label="close" onclick="offClick_edit()"></button>
+                </header>
+                <section class="modal-card-body">
+                    <div class="field">
+                        <label class="label">제목</label>
+                        <div class="control">
+                            <input class="input" id="${id}-edittitle" type="text" value="${title}">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">작성자</label>
+                        <div class="control">
+                            <input class="input" id="${id}-editauthor" type="text" value="${author}">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">내용</label>
+                        <div class="control">
+                            <textarea class="textarea" id="${id}-editcontent">${content}</textarea>
+                        </div>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button is-update" id="${id}-update" onclick="updateOne('${id}')">수정</button>
+                    <button class="button is-delete" id="${id}-delete" onclick="deleteOne('${id}')">삭제</button>
+                    <button class="button is-cancel" onclick="offClick_edit()">취소</button>
+                </footer>`
+
+            $('#edit_page').append(tempHtml);
+        }
+
+        function deleteOne(id) {
+            $.ajax({
+                type: "DELETE",
+                url: `/api/posts/${id}`,
+                success: function (response) {
+                    alert('삭제되었습니다.');
+                    window.location.reload();
+                }
+            })
+        }
+
+        function updateOne(id) {
+            let title = $(`#${id}-edittitle`).val().trim();
+            let author = $(`#${id}-editauthor`).val().trim();
+            let content = $(`#${id}-editcontent`).val().trim();
+
+
+            let data = {'title': title, 'author': author, 'content': content};
+
+            $.ajax({
+                type: "PUT",
+                url: `/api/posts/${id}`,
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function (response) {
+                    alert('포스트가 수정되었습니다.');
+                }
+            });
+        }
+
+
+    </script>
+    <title>Title</title>
+</head>
+<body>
+<div class="limiter">
+    <div class="container-table100">
+        <div class="wrap-table100">
+            <div class="table100 ver1 m-b-110">
+                <div class="table100-head">
+                    <table>
+                        <thead>
+                        <tr class="row100 head">
+                            <th class="cell100 column1">제목</th>
+                            <th class="cell100 column2">작성자명</th>
+                            <th class="cell100 column3">작성날짜</th>
+                            <th class="cell100 column4">편집</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="table100-body js-pscroll" id="posting_list">
+
+                </div>
+            </div>
+            <div class="wrap-button">
+                <button class="button" id="signup_btn">회원가입</button>
+                <button class="button" id="login_btn">로그인</button>
+                <button class="button" id="modal_btn">글쓰기</button>
+            </div>
+        </div>
+
+        <!-- 글쓰기 모달-->
+        <div class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">포스팅 작성하기</p>
+                    <button class="delete" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <div class="field">
+                        <label class="label">제목</label>
+                        <div class="control">
+                            <input class="input" id="title" type="text" placeholder="제목을 입력해주세요">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">작성자</label>
+                        <div class="control">
+                            <input class="input" id="author" type="text" placeholder="이름을 입력해주세요">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">내용</label>
+                        <div class="control">
+                            <textarea class="textarea" id="content" placeholder="내용을 입력해주세요"></textarea>
+                        </div>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button onclick="writePost()" class="button is-success">작성 완료</button>
+                    <button class="button is-cancel">취소</button>
+                </footer>
+            </div>
+        </div>
+        <!-- detail 모달-->
+        <div class="modal" id="modal_detail" style="display: none">
+            <div class="modal-background"></div>
+            <div class="modal-card" id="detail_page">
+
+            </div>
+        </div>
+        <!-- edit 모달-->
+        <div class="modal" id="modal_edit" style="display: none">
+            <div class="modal-background"></div>
+            <div class="modal-card" id="edit_page">
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

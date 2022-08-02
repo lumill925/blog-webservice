@@ -1,7 +1,9 @@
 package com.sparta.blogwebservice.dto.Posts;
 
 import com.sparta.blogwebservice.domain.Posts;
+import lombok.Getter;
 
+@Getter
 public class PostsResponseDto {
 
     private Long id;
