@@ -2,6 +2,7 @@ package com.sparta.blogwebservice.domain;
 
 import com.sparta.blogwebservice.dto.Posts.PostsSaveRequestDto;
 import com.sparta.blogwebservice.dto.Posts.PostsUpdateRequestDto;
+import com.sparta.blogwebservice.repository.PostsRepository;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;

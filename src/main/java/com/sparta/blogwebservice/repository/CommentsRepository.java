@@ -1,5 +1,6 @@
-package com.sparta.blogwebservice.domain;
+package com.sparta.blogwebservice.repository;
 
+import com.sparta.blogwebservice.domain.Comments;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

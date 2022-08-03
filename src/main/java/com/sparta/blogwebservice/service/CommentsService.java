@@ -1,8 +1,7 @@
 package com.sparta.blogwebservice.service;
 
 import com.sparta.blogwebservice.domain.Comments;
-import com.sparta.blogwebservice.domain.CommentsRepository;
-import com.sparta.blogwebservice.dto.Comments.CommentsListResponseDto;
+import com.sparta.blogwebservice.repository.CommentsRepository;
 import com.sparta.blogwebservice.dto.Comments.CommentsResponseDto;
 import com.sparta.blogwebservice.dto.Comments.CommentsSaveResquestDto;
 import com.sparta.blogwebservice.dto.Comments.CommentsUpdateRequestDto;
@@ -10,8 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service

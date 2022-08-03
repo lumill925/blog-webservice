@@ -1,8 +1,7 @@
 package com.sparta.blogwebservice.service;
 
 import com.sparta.blogwebservice.domain.Posts;
-import com.sparta.blogwebservice.domain.PostsRepository;
-import com.sparta.blogwebservice.dto.Posts.PostsListResponseDto;
+import com.sparta.blogwebservice.repository.PostsRepository;
 import com.sparta.blogwebservice.dto.Posts.PostsResponseDto;
 import com.sparta.blogwebservice.dto.Posts.PostsSaveRequestDto;
 import com.sparta.blogwebservice.dto.Posts.PostsUpdateRequestDto;
@@ -10,8 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -51,12 +48,4 @@ public class PostsService {
                 );
         return new PostsResponseDto(posts);
     }
-
-//    @Transactional
-//    public List<PostsListResponseDto> findAllByOrderByModifiedDateDesc() {
-//        return postsRepository.findAllByOrderByModifiedDateDesc().stream()
-//                .map(PostsListResponseDto::new)
-//                .collect(Collectors.toList());
-//    }
-
 }
