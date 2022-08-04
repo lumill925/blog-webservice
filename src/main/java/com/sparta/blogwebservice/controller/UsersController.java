@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/user")
 public class UsersController {
 
     private final UsersService usersService;
@@ -17,17 +19,17 @@ public class UsersController {
         this.usersService = usersService;
     }
 
-    @GetMapping("/api/member/login")
+    @GetMapping("/login")
     public String login() {
         return "login";
     }
 
-    @GetMapping("/signupapi/member/signup")
+    @PostMapping("/signup")
     public String signup() {
         return "signup";
     }
 
-    @PostMapping("/user/signup")
+    @GetMapping("/signup")
     public String registerUser(SignupRequestDto requestDto) {
         usersService.registerUser(requestDto);
         return "redirect:/api/member/login";
