@@ -21,7 +21,7 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf()
-                        .ignoringAntMatchers("/user/**");
+                .ignoringAntMatchers("/user/**");
         http
                 .authorizeHttpRequests((authz) -> authz
                         .antMatchers("/css/**").permitAll()
@@ -29,18 +29,18 @@ public class WebSecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin()
-                    .loginPage("/api/member/login")
-                    .loginProcessingUrl("/api/member/login")
-                    .defaultSuccessUrl("/")
-                    .failureUrl("/api/member/login?error")
-                    .permitAll()
+                .loginPage("/api/member/login")
+                .loginProcessingUrl("/api/member/login")
+                .defaultSuccessUrl("/")
+                .failureUrl("/api/member/login?error")
+                .permitAll()
                 .and()
-                    .logout()
-                    .logoutUrl("/")
-                    .permitAll()
-                    .and()
-                    .exceptionHandling()
-                    .accessDeniedPage("/forbidden.html");
+                .logout()
+                .logoutUrl("/")
+                .permitAll()
+                .and()
+                .exceptionHandling()
+                .accessDeniedPage("/forbidden.html");
 
 
         return http.build();
